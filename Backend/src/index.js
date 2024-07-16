@@ -5,7 +5,18 @@ dotenv.config({
     path:"./.env"
 })
 
-connectDb();
+//asynchronous method jab bhi complete hota hai tab el promise return karta hai
+
+connectDb()
+.then(()=>{
+    //mongodb to connect ho gaya ab server start kar lete hai
+    app.listen(process.env.PORT || 8000,()=>{
+        console.log(`App is listening at port : ${process.env.PORT}`);
+    })
+})
+.catch((err)=>{
+    console.log("Mongo Db connection failed !!!",err);
+})
 
 
 
